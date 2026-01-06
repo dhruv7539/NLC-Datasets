@@ -1,91 +1,86 @@
-# WB Social Listening — Multi-Country Datasets (Pilot)
+WB Social Listening — Multi-Country Datasets (Pilot)
 
-This repository contains pilot datasets used for social listening analysis across three country contexts:
+This repository contains pilot datasets for social listening analysis across three country contexts:
+	•	Nigeria: BBNaija Season 9 discourse (forum discussion corpus; optional short-video reach lens)
+	•	India: Made in Heaven Season 2 discourse (video-comment corpus)
+	•	Kenya: Real Housewives of Nairobi discourse (microblogging corpus; optional reach lens)
 
-- **Nigeria:** BBNaija Season 9 discourse (Nairaland; optional TikTok lens)
-- **India:** Made in Heaven Season 2 discourse (YouTube comments)
-- **Kenya:** Real Housewives of Nairobi discourse (Twitter/X posts)
+The datasets are designed to support analysis of gender norms, women’s economic empowerment, and related social narratives through public online conversation.
 
-The goal of these datasets is to support analysis of **gender norms**, **economic empowerment**, and related social narratives through public online conversation.
+⸻
 
----
+Dataset Stages (shared convention)
 
-## What’s inside
+Each country folder may contain one or more dataset “stages.” Not every country will have every stage, but naming follows the same logic:
 
-Each country folder may include the following dataset stages:
+1) Raw (source extract)
+Minimally processed platform output retained for traceability. Raw files preserve original fields as collected.
 
-1. **Raw**
-   - Original collected data in a minimally processed form.
+2) Standardized (schema-aligned)
+Raw platform fields mapped into a consistent structure across countries (common metadata + text fields). If a platform does not provide stable identifiers, internal IDs may be assigned during this step.
 
-2. **Standardized**
-   - Same schema style across countries (consistent column names + basic metadata).
+3) Cleaned (meaning-preserving normalization)
+Light text normalization applied to improve downstream analysis while preserving meaning:
+	•	URL stripping
+	•	whitespace normalization
+	•	casing normalization (where applicable)
+Emojis, slang, and code-switching tokens are retained because they often encode tone and cultural context.
 
-3. **Cleaned**
-   - Text cleaned (e.g., URLs removed, whitespace normalized), duplicates removed, and language tags added where applicable.
+4) Candidate / Shortlist (relevance filtering)
+A high-recall shortlist of likely relevant records produced using one or both of:
+	•	keyword family matching (rule-based)
+	•	semantic similarity filtering (embedding-based relevance seeded by a curated query)
+This stage is intentionally permissive to reduce false negatives; precision is tightened downstream.
 
-4. **Filtered / Candidate Set**
-   - High-recall keyword filtering used to capture likely relevant content.
+5) Analysis-Ready (final subset for coding/analysis)
+Final curated subset used for human/LLM coding and summary analysis (e.g., fixed Top-N or calibrated threshold selection for reproducibility), with any derived labels stored as additional columns.
 
-5. **Analysis-Ready**
-   - Final curated subset used for coding and analysis (e.g., top-N selection for reproducibility).
+⸻
 
----
+Columns (high-level, shared)
 
-## Columns (high-level)
+Common fields may include (depending on platform availability):
+	•	country, platform
+	•	timestamp / created time (if available)
+	•	raw and/or cleaned text fields
+	•	optional engagement fields (e.g., views/likes/replies/shares when available)
+	•	optional source context fields (e.g., thread/video/post URLs, query/hashtag seed)
 
-Common metadata fields (where available):
-- `platform`, `country`
-- `created_at` / `timestamp`
-- `text` (raw and/or cleaned)
-- engagement fields (likes, replies, etc.) when available
+Platform-specific identifiers vary by source. When available, datasets store stable source IDs; otherwise, stable internal IDs are assigned at standardization time.
 
-Platform-specific fields may include:
-- **Nairaland:** `post_id`, `parent_post_id`, `tier`
-- **YouTube:** `video_id`, `comment_id`
-- **Twitter/X:** `tweet_id`, `author_handle`
+⸻
 
----
+Language Notes
 
-## Notes on language
+Content may include mixed-language and informal registers. Language tags (if present) are descriptive and used for sampling balance and error analysis rather than strict exclusion.
 
-- **Nigeria:** English + Nigerian Pidgin and other local markers may appear.
-- **India:** English + Hinglish/Hindi tokens may appear (often in Latin script).
-- **Kenya:** English dominates with some Swahili/Sheng mixing.
+⸻
 
-Language tags (if present) are descriptive and not strict exclusions.
+Responsible Use & Ethics
 
----
+These datasets are derived from publicly available online content. Please use responsibly:
+	•	Do not attempt to identify or contact individual users.
+	•	Avoid quoting verbatim text in ways that enable re-identification.
+	•	Treat the content as sensitive social data, even when public.
+	•	Respect platform terms of service and local privacy expectations.
 
-## Ethics & responsible use
+⸻
 
-These datasets are derived from publicly available online content.  
-Please use responsibly:
+Limitations
+	•	Pilot/sample-based datasets may not be nationally representative.
+	•	Engagement metadata can be incomplete or inconsistent across platforms.
+	•	Sarcasm, slang, and coded language may require contextual interpretation.
+	•	Cross-platform comparability is limited by platform norms and data access differences.
 
-- Do not attempt to identify or contact individual users.
-- Avoid quoting verbatim text in publications when it could enable re-identification.
-- Treat the content as sensitive social data, even when public.
-- Respect platform terms of service and local privacy expectations.
+⸻
 
----
+Citation
 
-## Limitations
+If referencing this dataset:
+WB Social Listening — Multi-Country Datasets (Pilot), 2024–2025.
 
-- The datasets are **pilot / sample-based** and may not represent all public discourse.
-- Engagement metadata may be incomplete depending on platform access.
-- Some records may contain slang, sarcasm, or coded language that requires contextual interpretation.
+⸻
 
----
-
-## Citation
-
-If you reference this dataset, cite it as:
-
-**WB Social Listening — Multi-Country Datasets (Pilot), 2024–2025.**
-
----
-
-## Contact
+Contact
 
 For questions about structure, columns, or sampling choices, open an issue in this repo.
-
-
