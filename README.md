@@ -92,7 +92,7 @@ These datasets are derived from publicly available online content. Please use re
 ## Citation
 
 If referencing this dataset, cite as:  
-**WB Social Listening — Multi-Country Datasets (Pilot), 2024–2025.**
+**WB Social Listening — Multi-Country Datasets, 2024–2025.**
 
 ---
 
